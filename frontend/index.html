@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>LibraryPro — Advanced Library Management System</title>
+    <meta name="description" content="LibraryPro — professional library management for educational institutions. Automate cataloging, student management, and borrowing operations.">
+    <meta name="keywords" content="library management, book catalog, student portal, library software, digital library">
+    <meta name="theme-color" content="#0d6efd">
+
+    <!-- Preconnect / Preload -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fallback favicon (data URI) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LibraryPro — Advanced Library Management System">
+    <meta property="og:description" content="Professional library management for educational institutions.">
+    <meta property="og:image" content="assets/og-image.jpg">
+
+    <!-- Accessibility: skip link -->
+    <style>
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 1rem;
+            top: 1rem;
+            width: auto;
+            height: auto;
+            padding: .5rem .75rem;
+            background: #0d6efd;
+            color: #fff;
+            z-index: 9999;
+            border-radius: .25rem;
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" aria-label="Primary">
+            <div class="container">
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2 brand-with-logo" href="/frontend/index.html">
+                <img src="assets/logo.png" alt="LibraryPro logo" class="site-logo"
+                    onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>'">
+                    <span>LibraryPro</span>
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item ms-2">
+                            <div class="dropdown">
+                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="loginMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-sign-in-alt me-1" aria-hidden="true"></i><span class="visually-hidden">Login</span><span aria-hidden="true"> Login</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginMenu">
+                                    <li><a class="dropdown-item" href="login.html?role=student"><i class="fas fa-graduation-cap me-2 text-primary" aria-hidden="true"></i>Student Login</a></li>
+                                    <li><a class="dropdown-item" href="login.html?role=admin"><i class="fas fa-user-shield me-2 text-success" aria-hidden="true"></i>Admin Login</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><button class="dropdown-item text-muted" onclick="showDemo()" type="button"><i class="fas fa-play me-2" aria-hidden="true"></i>View Demo</button></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section" aria-labelledby="hero-heading">
+            <div class="hero-overlay">
+                <div class="container">
+                    <div class="row align-items-center min-vh-100">
+                        <div class="col-lg-6">
+                            <div class="hero-content">
+                                <div class="badge bg-primary bg-opacity-20 text-primary px-3 py-2 mb-4">
+                                </div>
+                                <h1 id="hero-heading" class="display-3 fw-bold text-white mb-4">
+                                    Transform Your
+                                    <span class="text-gradient">Library Management</span>
+                                </h1>
+                                <p class="lead text-white-75 mb-4 pe-lg-5">
+                                    Revolutionize your library operations with LibraryPro — automate cataloging, streamline borrowing,
+                                    and provide seamless access to your digital collection.
+                                </p>
+
+                                <div class="hero-stats row text-center mb-4" aria-hidden="false" aria-live="polite">
+                                    <div class="col-4">
+                                        <h4 class="text-white fw-bold mb-0 counter" data-count="10000" aria-label="Books managed">0</h4>
+                                        <small class="text-white-50">Books Managed</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <h4 class="text-white fw-bold mb-0 counter" data-count="5000" aria-label="Active users">0</h4>
+                                        <small class="text-white-50">Active Users</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <h4 class="text-white fw-bold mb-0 counter" data-count="99" aria-label="Uptime percentage">0</h4>
+                                        <small class="text-white-50">% Uptime</small>
+                                    </div>
+                                </div>
+
+                                <div class="hero-buttons">
+                                    <a href="login.html" class="btn btn-light btn-lg px-4 me-3" role="button">
+                                        <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>Access System
+                                    </a>
+                                    <button class="btn btn-outline-light btn-lg px-4" type="button" onclick="scrollToSection('features')">
+                                        <i class="fas fa-play me-2" aria-hidden="true"></i>Watch Demo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <aside class="hero-dashboard" aria-label="Dashboard preview">
+                                <div class="dashboard-preview" role="img" aria-label="Dashboard mockup showing recent activity and stats">
+                                    <div class="dashboard-header">
+                                        <div class="d-flex align-items-center justify-content-between p-3">
+                                            <h6 class="text-dark fw-bold mb-0">📚 Library Dashboard</h6>
+                                            <div class="d-flex gap-1" aria-hidden="true">
+                                                <span class="dot bg-danger"></span>
+                                                <span class="dot bg-warning"></span>
+                                                <span class="dot bg-success"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-content p-4">
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-6">
+                                                <div class="stat-mini bg-primary bg-opacity-10 p-3 rounded">
+                                                    <i class="fas fa-book text-primary mb-2" aria-hidden="true"></i>
+                                                    <div class="fw-bold">2,847</div>
+                                                    <small class="text-muted">Total Books</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="stat-mini bg-success bg-opacity-10 p-3 rounded">
+                                                    <i class="fas fa-users text-success mb-2" aria-hidden="true"></i>
+                                                    <div class="fw-bold">1,234</div>
+                                                    <small class="text-muted">Students</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="recent-activity" aria-label="Recent activity">
+                                            <h6 class="fw-bold mb-3">Recent Activity</h6>
+                                            <div class="activity-item">
+                                                <i class="fas fa-book-open text-primary me-2" aria-hidden="true"></i>
+                                                <small>JavaScript Guide borrowed by John D.</small>
+                                            </div>
+                                            <div class="activity-item">
+                                                <i class="fas fa-undo text-success me-2" aria-hidden="true"></i>
+                                                <small>Clean Code returned by Sarah M.</small>
+                                            </div>
+                                            <div class="activity-item">
+                                                <i class="fas fa-plus text-info me-2" aria-hidden="true"></i>
+                                                <small>New book "React Patterns" added</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-decoration" aria-hidden="true">
+                <div class="decoration-1"></div>
+                <div class="decoration-2"></div>
+                <div class="decoration-3"></div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="py-5 bg-light" aria-labelledby="features-heading">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 id="features-heading" class="display-5 fw-bold">Powerful Features</h2>
+                        <p class="lead text-muted">Everything you need to manage your library efficiently</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
+                            <h4>Role-Based Access</h4>
+                            <p>Separate interfaces for administrators and students with appropriate permissions.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
+                            <h4>Advanced Search</h4>
+                            <p>Find books quickly with our powerful search and filtering system.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
+                            <h4>Analytics & Reports</h4>
+                            <p>Comprehensive reporting and analytics for better decision making.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-bell" aria-hidden="true"></i></div>
+                            <h4>Smart Notifications</h4>
+                            <p>Automated reminders for due dates and overdue books.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
+                            <h4>Responsive Design</h4>
+                            <p>Access your library system from any device, anywhere, anytime.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+                            <h4>Secure & Reliable</h4>
+                            <p>Built with security best practices and reliable data protection.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="py-5 bg-primary text-white" aria-labelledby="stats-heading">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-12 mb-4">
+                        <h2 id="stats-heading" class="display-6 fw-bold mb-3">Trusted Worldwide</h2>
+                        <p class="lead opacity-75">Join thousands of institutions already using LibraryPro</p>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-icon mb-3"><i class="fas fa-book fa-2x" aria-hidden="true"></i></div>
+                            <h3 class="display-4 fw-bold counter" data-count="50000" aria-label="Books managed across institutions">0</h3>
+                            <p class="lead">Books Managed</p>
+                            <small class="opacity-75">Across all institutions</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-icon mb-3"><i class="fas fa-users fa-2x" aria-hidden="true"></i></div>
+                            <h3 class="display-4 fw-bold counter" data-count="25000" aria-label="Active users">0</h3>
+                            <p class="lead">Active Users</p>
+                            <small class="opacity-75">Students & faculty</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-icon mb-3"><i class="fas fa-university fa-2x" aria-hidden="true"></i></div>
+                            <h3 class="display-4 fw-bold counter" data-count="500" aria-label="Institutions">0</h3>
+                            <p class="lead">Institutions</p>
+                            <small class="opacity-75">Schools & universities</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-icon mb-3"><i class="fas fa-star fa-2x" aria-hidden="true"></i></div>
+                            <h3 class="display-4 fw-bold counter" data-count="98" aria-label="Satisfaction percentage">0</h3>
+                            <p class="lead">Satisfaction %</p>
+                            <small class="opacity-75">User satisfaction rate</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="py-5" aria-labelledby="about-heading">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="about-image" aria-hidden="true">
+                            <div class="image-placeholder">
+                                <i class="fas fa-university fa-5x text-primary" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-content">
+                            <h2 id="about-heading" class="display-5 fw-bold mb-4">About Our System</h2>
+                            <p class="lead mb-4">
+                                Our Library Management System is built with modern web standards and accessibility in mind,
+                                designed to revolutionize how libraries operate in the digital age.
+                            </p>
+                            <div class="about-features">
+                                <div class="feature-item"><i class="fas fa-check-circle text-success me-3" aria-hidden="true"></i><span>Easy to use interface</span></div>
+                                <div class="feature-item"><i class="fas fa-check-circle text-success me-3" aria-hidden="true"></i><span>Real-time book tracking</span></div>
+                                <div class="feature-item"><i class="fas fa-check-circle text-success me-3" aria-hidden="true"></i><span>Automated notifications</span></div>
+                                <div class="feature-item"><i class="fas fa-check-circle text-success me-3" aria-hidden="true"></i><span>Comprehensive reporting</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-5 bg-light" aria-labelledby="contact-heading">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 id="contact-heading" class="display-5 fw-bold">Get In Touch</h2>
+                        <p class="lead text-muted">Have questions? We'd love to hear from you.</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="contact-form">
+                            <form id="contactForm" novalidate>
+                                <!-- Simple honeypot anti-spam -->
+                                <input type="text" name="hp_email" id="hp_email" style="display:none" tabindex="-1" autocomplete="off">
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                            <label for="name">Your Name</label>
+                                            <div class="invalid-feedback">Please enter your name.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                                            <label for="email">Your Email</label>
+                                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                                            <label for="subject">Subject</label>
+                                            <div class="invalid-feedback">Please enter a subject.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="message" name="message" style="height: 120px" placeholder="Your Message" required></textarea>
+                                            <label for="message">Your Message</label>
+                                            <div class="invalid-feedback">Please enter a message.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg" id="contactSubmit">
+                                            <i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Send Message
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div id="contactStatus" role="status" aria-live="polite" class="visually-hidden mt-3"></div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <noscript class="mt-3">
+                                <div class="alert alert-warning">JavaScript is disabled — the contact form won't submit dynamically. Please enable JavaScript or email us directly at support@example.com.</div>
+                            </noscript>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 LibraryPro. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" class="text-white me-3" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" class="text-white me-3" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="#" class="text-white" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Modal (Bootstrap 5) -->
+    <div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 id="demoModalLabel" class="modal-title">
+                        <i class="fas fa-play-circle text-primary me-2" aria-hidden="true"></i>System Demo
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4">
+                        <div class="demo-icon"><i class="fas fa-desktop fa-3x text-primary" aria-hidden="true"></i></div>
+                        <h6 class="mt-3 mb-2">Interactive System Demo</h6>
+                        <p class="text-muted">Explore the interface and features without logging in</p>
+                    </div>
+
+                    <div class="demo-options">
+                        <button class="demo-option btn btn-outline-secondary w-100 mb-2" type="button" onclick="openStudentDemo()">
+                            <i class="fas fa-graduation-cap text-success me-3" aria-hidden="true"></i>
+                            <div class="d-inline-block text-start">
+                                <h6 class="mb-1">Student Dashboard Demo</h6>
+                                <small class="text-muted">Browse books, search, and view borrowing interface</small>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted small">
+                            <i class="fas fa-info-circle me-1" aria-hidden="true"></i>
+                            Demo uses sample data and simulated interactions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner visually-hidden" aria-hidden="true">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Scripts: deferred to avoid render-blocking -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="js/main.js"></script>
+</body>
+</html>
+</html>

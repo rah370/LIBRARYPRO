@@ -1,0 +1,584 @@
+/* Login Page Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --light-bg: #f8f9fa;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--gradient-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Navigation */
+.navbar {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+/* Login Container */
+.login-container {
+    min-height: calc(100vh - 80px);
+    padding: 2rem 0;
+}
+
+.login-wrapper {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.11);
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr; /* narrower left, wider form */
+    min-height: 480px; /* slightly more compact */
+}
+
+/* Left Side - Info Panel */
+.login-info {
+    background: var(--gradient-primary);
+    padding: 2rem 2.25rem; /* reduce horizontal padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-info::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    right: auto;
+    bottom: auto;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="90" fill="%23ffffff" fill-opacity="0.02"/><circle cx="800" cy="800" r="120" fill="%23ffffff" fill-opacity="0.01"/></svg>');
+    background-repeat: no-repeat;
+    background-size: 55% 55%;
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+.info-content {
+    position: relative;
+    z-index: 2;
+    max-width: 420px; /* avoid very wide left content */
+    margin: 0 auto;
+}
+
+.brand-logo i {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+}
+
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.features-list {
+    margin: 2rem 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.feature-item i {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+.testimonial {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border-left: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Right Side - Forms */
+.login-form {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Role Selection */
+.role-selection {
+    animation: fadeInUp 0.6s ease;
+}
+
+.role-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.role-card:hover::before {
+    left: 100%;
+}
+
+.role-card:hover {
+    border-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.role-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.role-icon.admin {
+    background: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+}
+
+.role-card:hover .role-icon {
+    transform: scale(1.1);
+}
+
+.role-card h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.role-card p {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.role-arrow {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    color: #bbb;
+    transition: var(--transition);
+}
+
+.role-card:hover .role-arrow {
+    color: var(--secondary-color);
+    transform: translateY(-50%) translateX(5px);
+}
+
+/* Login Form */
+.login-form-container {
+    animation: fadeInUp 0.6s ease;
+}
+
+.role-badge {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.form-label {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.input-group-text {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+}
+
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.input-group .btn {
+    border: 2px solid #e9ecef;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-success {
+    background: var(--success-color);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.btn-outline-primary:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Demo Credentials */
+.demo-credentials {
+    border-left: 4px solid var(--secondary-color);
+    animation: pulse 2s infinite;
+}
+
+/* Form Check */
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Loading States */
+.button-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-content {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Alert Container */
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .login-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+    
+
+/* High-contrast overrides for improved readability */
+.login-wrapper {
+    box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+}
+
+.login-form {
+    background: #ffffff;
+    color: #111827; /* dark text */
+    border-left: 1px solid rgba(0,0,0,0.04);
+}
+
+.form-label { color: #1f2937; }
+.form-control { background: #ffffff; color: #111827; border: 1px solid #e6e6e6; }
+.form-control::placeholder { color: #9ca3af; }
+
+.btn-primary { background: linear-gradient(90deg,#6b7cff 0%,#8a63d2 100%); color: #fff; }
+
+.demo-credentials { background: #f8fafc; border-left-color: #7c6be0; }
+
+/* Larger logo for the login view */
+.site-logo-lg { width:auto; max-width:96px; height:auto; display:block; margin:0 auto 1rem; object-fit:contain; }
+    .login-info {
+        padding: 2rem;
+        min-height: 300px;
+    }
+    
+    .features-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+    
+    .testimonial {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1rem 0;
+    }
+    
+    .login-wrapper {
+        margin: 1rem;
+        border-radius: 15px;
+    }
+    
+    .login-info,
+    .login-form {
+        padding: 2rem 1.5rem;
+    }
+    
+    .role-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .features-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-info,
+    .login-form {
+        padding: 1.5rem 1rem;
+    }
+    
+    .form-content {
+        padding: 0;
+    }
+    
+    .brand-logo h3 {
+        font-size: 1.5rem;
+    }
+    
+    .role-card {
+        padding: 1rem;
+    }
+    
+    .role-card h5 {
+        font-size: 1rem;
+    }
+    
+    .role-card p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .login-wrapper {
+        background: #1a1a1a;
+        color: white;
+    }
+    
+    .form-control {
+        background: #2d2d2d;
+        border-color: #404040;
+        color: white;
+    }
+    
+    .form-control:focus {
+        background: #2d2d2d;
+    }
+    
+    .input-group-text {
+        background: #404040;
+        border-color: #404040;
+        color: white;
+    }
+}
+
+/* Force the right panel to use light theme regardless of OS/browser dark mode */
+.login-wrapper .login-form {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+.login-wrapper .login-form .form-label {
+    color: #1f2937 !important;
+}
+
+.login-wrapper .login-form .form-control {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: #e6e6e6 !important;
+}
+
+.login-wrapper .login-form .input-group-text {
+    background: transparent !important;
+    color: #6b7280 !important;
+    border-color: #e6e6e6 !important;
+}
+
+/* Override Bootstrap utility classes that may force white text inside the right panel */
+.login-wrapper .login-form .text-white,
+.login-wrapper .login-form .text-white-50,
+.login-wrapper .login-form .text-muted {
+    color: #1f2937 !important;
+}
+
+.login-wrapper .login-form h4,
+.login-wrapper .login-form h3,
+.login-wrapper .login-form p,
+.login-wrapper .login-form small,
+.login-wrapper .login-form label {
+    color: #111827 !important;
+}
+
+.login-wrapper .login-form .btn-link {
+    color: #374151 !important;
+}
+
+.login-wrapper .login-form .demo-credentials {
+    background: #f8fafc !important;
+    border-left-color: #7c6be0 !important;
+}
+
+/* Ensure placeholders are readable */
+.login-wrapper .login-form .form-control::placeholder { color: #9ca3af !important; }
+
+
+/* Print styles */
+@media print {
+    .login-info {
+        display: none;
+    }
+    
+    .login-form {
+        padding: 1rem;
+    }
+    
+    .btn {
+        display: none;
+    }
+}

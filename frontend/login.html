@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LibraryPro</title>
+    <meta name="description" content="Login to LibraryPro - Access your library management dashboard">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="fas fa-book-open me-2"></i>
+                LibraryPro
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100 py-5">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="login-wrapper">
+                        <!-- Left Side - Info Panel -->
+                        <div class="login-info">
+                            <div class="info-content">
+                                <div class="brand-logo text-center">
+                                    <h3 class="text-white fw-bold mb-3">Welcome to LibraryPro</h3>
+                                    <p class="text-white-75 mb-4">
+                                        Access your personalized library dashboard and manage your books,
+                                        borrowings, and academic resources all in one place.
+                                    </p>
+                                </div>
+                                
+                                <div class="features-list">
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle me-3"></i>
+                                        <span>Real-time book availability</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle me-3"></i>
+                                        <span>Automated due date reminders</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle me-3"></i>
+                                        <span>Advanced search & filtering</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle me-3"></i>
+                                        <span>Mobile-friendly interface</span>
+                                    </div>
+                                </div>
+
+                                <div class="testimonial mt-4">
+                                    <blockquote class="text-white-75 fst-italic">
+                                        "LibraryPro has transformed how we manage our library. 
+                                        It's intuitive, powerful, and saves us hours every day."
+                                    </blockquote>
+                                    <cite class="text-white fw-bold">— Sarah Johnson, Head Librarian</cite>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side - Login Form -->
+                        <div class="login-form">
+                            <div class="form-content">
+                                <!-- Role Selection -->
+                                <div id="roleSelection" class="role-selection">
+                                        <div class="text-center mb-4">
+                                        <h4 class="fw-bold text-white mb-2">Choose Your Access Level</h4>
+                                        <p class="text-white-50">Select your role to continue to the appropriate dashboard</p>
+                                    </div>
+                                    
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="role-card" onclick="selectRole('student')">
+                                                <div class="role-icon">
+                                                    <i class="fas fa-graduation-cap"></i>
+                                                </div>
+                                                <h5>Student Access</h5>
+                                                <p>Browse books, manage borrowings, and track due dates</p>
+                                                <div class="role-arrow">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="role-card" onclick="selectRole('admin')">
+                                                <div class="role-icon admin">
+                                                    <i class="fas fa-user-shield"></i>
+                                                </div>
+                                                <h5>Administrator</h5>
+                                                <p>Full system access, user management, and analytics</p>
+                                                <div class="role-arrow">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-outline-primary" onclick="showDemo()">
+                                            <i class="fas fa-play me-2"></i>Try Demo Instead
+                                        </button>
+                                        <button type="button" class="btn btn-link ms-2" id="fillDemoBtn">Use Demo Credentials</button>
+                                    </div>
+                                </div>
+
+                                <!-- Login Form -->
+                                <div id="loginForm" class="login-form-container" style="display: none;">
+                                    <div class="form-header text-center mb-4">
+                                        <div class="role-badge mb-3">
+                                            <!-- logo removed as requested -->
+                                        </div>
+                                        <h4 id="formTitle" class="fw-bold text-white mb-2">Student Login</h4>
+                                        <p class="text-white-50">Enter your credentials to access your dashboard</p>
+                                        <button class="btn btn-link btn-sm p-0 text-decoration-none text-white-50" onclick="backToRoleSelection()">
+                                            <i class="fas fa-arrow-left me-1"></i>Change Role
+                                        </button>
+                                    </div>
+
+                                    <form id="authForm" method="POST" action="/auth/login">
+                                        <input type="hidden" id="selectedRole" name="role" value="">
+                                        
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label fw-medium">Username or Email</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-user text-muted"></i>
+                                                </span>
+                                                <input type="text" class="form-control" id="username" name="username" required 
+                                                       placeholder="Enter your username or email">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label fw-medium">Password</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-lock text-muted"></i>
+                                                </span>
+                                                <input type="password" class="form-control" id="password" name="password" required 
+                                                       placeholder="Enter your password">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                                    <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
+                                                <label class="form-check-label" for="rememberMe">
+                                                    Remember me for 30 days
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid mb-3">
+                                            <button type="submit" class="btn btn-primary btn-lg" id="loginButton">
+                                                <span class="button-text">
+                                                    <i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard
+                                                </span>
+                                                <div class="button-spinner" style="display: none;">
+                                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                                    Logging in...
+                                                </div>
+                                            </button>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <a href="#" class="text-decoration-none" onclick="showForgotPassword()">
+                                                <i class="fas fa-question-circle me-1"></i>Forgot your password?
+                                            </a>
+                                        </div>
+                                    </form>
+
+                                    <!-- Demo Credentials -->
+                                    <div class="demo-credentials mt-4 p-3 bg-light rounded">
+                                        <h6 class="fw-bold text-primary mb-2">
+                                            <i class="fas fa-info-circle me-1"></i>Demo Credentials
+                                        </h6>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <strong>Student:</strong><br>
+                                                <small class="text-muted">Username: student<br>Password: student123</small>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <strong>Admin:</strong><br>
+                                                <small class="text-muted">Username: admin<br>Password: admin123</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Registration Form -->
+                                <div id="registerForm" class="register-form-container" style="display: none;">
+                                    <div class="form-header text-center mb-4">
+                                        <h4 class="fw-bold text-dark mb-2">Create Student Account</h4>
+                                        <p class="text-muted">Register to access the library system</p>
+                                    </div>
+
+                                    <form id="registrationForm" method="POST">
+                                        <input type="hidden" name="action" value="register">
+                                        
+                                        <div class="row">
+                                            <div class="col-sm-6 mb-3">
+                                                <label for="firstName" class="form-label fw-medium">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" name="first_name" required>
+                                            </div>
+                                            <div class="col-sm-6 mb-3">
+                                                <label for="lastName" class="form-label fw-medium">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" name="last_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="studentId" class="form-label fw-medium">Student ID</label>
+                                            <input type="text" class="form-control" id="studentId" name="student_id" required 
+                                                   placeholder="e.g., STU001">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label fw-medium">Email Address</label>
+                                            <input type="email" class="form-control" id="email" name="email" required 
+                                                   placeholder="student@university.edu">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="regPassword" class="form-label fw-medium">Password</label>
+                                            <input type="password" class="form-control" id="regPassword" name="password" required 
+                                                   minlength="6" placeholder="Minimum 6 characters">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="confirmPassword" class="form-label fw-medium">Confirm Password</label>
+                                            <input type="password" class="form-control" id="confirmPassword" required>
+                                        </div>
+
+                                        <div class="d-grid mb-3">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="fas fa-user-plus me-2"></i>Create Account
+                                            </button>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-link" onclick="backToRoleSelection()">
+                                                <i class="fas fa-arrow-left me-1"></i>Back to Login
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="login-footer text-center mt-4">
+                                <p class="text-muted small mb-2">
+                                    Need help? <a href="mailto:support@librarypro.com">Contact Support</a>
+                                </p>
+                                <p class="text-muted small">
+                                    © 2025 LibraryPro. All rights reserved.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-3"></div>
+            <p>Connecting to your dashboard...</p>
+        </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer" class="alert-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
