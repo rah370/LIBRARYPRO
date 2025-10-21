@@ -55,7 +55,7 @@ class Auth extends CI_Controller {
                         'role' => $user->role,
                         'first_name' => $user->first_name,
                         'last_name' => $user->last_name,
-                        'student_id' => $user->student_id,
+                        'student_id' => isset($user->student_id) ? $user->student_id : null,
                         'logged_in' => TRUE
                     );
                     

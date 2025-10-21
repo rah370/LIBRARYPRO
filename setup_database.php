@@ -12,13 +12,17 @@ try {
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username VARCHAR(50) UNIQUE NOT NULL,
-            email VARCHAR(255) UNIQUE NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
-            role ENUM('admin','student') NOT NULL DEFAULT 'student',
+            role VARCHAR(20) DEFAULT 'student',
             student_id VARCHAR(20) UNIQUE,
-            first_name VARCHAR(100) NOT NULL,
-            last_name VARCHAR(100) NOT NULL,
+            first_name VARCHAR(50),
+            last_name VARCHAR(50),
+            phone VARCHAR(20),
+            address TEXT,
+            status VARCHAR(20) DEFAULT 'active',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             last_login DATETIME
         )
     ");
@@ -32,8 +36,17 @@ try {
             author VARCHAR(255) NOT NULL,
             isbn VARCHAR(20) UNIQUE NOT NULL,
             description TEXT,
-            available BOOLEAN DEFAULT 1,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            category VARCHAR(100),
+            publisher VARCHAR(255),
+            publication_year INTEGER,
+            pages INTEGER,
+            copies_total INTEGER DEFAULT 1,
+            copies_available INTEGER DEFAULT 1,
+            location VARCHAR(100),
+            status VARCHAR(20) DEFAULT 'available',
+            cover VARCHAR(255),
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
     echo "<p>✅ Created books table</p>";
@@ -44,13 +57,14 @@ try {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             book_id INTEGER NOT NULL,
             user_id INTEGER NOT NULL,
-            user_name VARCHAR(255) NOT NULL,
-            user_email VARCHAR(255) NOT NULL,
             borrow_date DATETIME NOT NULL,
-            return_date DATETIME NOT NULL,
-            actual_return_date DATETIME NULL,
-            status VARCHAR(20) DEFAULT 'borrowed',
+            due_date DATETIME NOT NULL,
+            return_date DATETIME,
+            status VARCHAR(20) DEFAULT 'active',
+            fine_amount DECIMAL(10,2) DEFAULT 0.00,
+            notes TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )
@@ -59,11 +73,11 @@ try {
     
     // Insert admin user
     $stmt = $db->prepare("
-        INSERT OR IGNORE INTO users (username, email, password, role, first_name, last_name) 
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT OR IGNORE INTO users (username, email, password, role, first_name, last_name, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     $admin_password = password_hash('admin123', PASSWORD_DEFAULT);
-    $stmt->execute(['admin', 'admin@library.com', $admin_password, 'admin', 'Library', 'Administrator']);
+    $stmt->execute(['admin', 'admin@library.com', $admin_password, 'admin', 'Library', 'Administrator', 'active']);
     echo "<p>✅ Created admin user (admin/admin123)</p>";
     
     // Insert sample students
@@ -76,8 +90,8 @@ try {
     ];
     
     $stmt = $db->prepare("
-        INSERT OR IGNORE INTO users (username, email, password, role, student_id, first_name, last_name) 
-        VALUES (?, ?, ?, 'student', ?, ?, ?)
+        INSERT OR IGNORE INTO users (username, email, password, role, student_id, first_name, last_name, status) 
+        VALUES (?, ?, ?, 'student', ?, ?, ?, 'active')
     ");
     
     foreach ($students as $student) {
@@ -106,26 +120,26 @@ try {
     ];
     
     $stmt = $db->prepare("
-        INSERT OR IGNORE INTO books (title, author, isbn, description) 
-        VALUES (?, ?, ?, ?)
+        INSERT OR IGNORE INTO books (title, author, isbn, description, category, copies_total, copies_available, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ");
     
     foreach ($books as $book) {
-        $stmt->execute($book);
+        $stmt->execute([$book[0], $book[1], $book[2], $book[3], 'Fiction', 1, 1, 'available']);
     }
     echo "<p>✅ Created " . count($books) . " sample books</p>";
     
     // Insert some sample borrows
     $borrows = [
-        [1, 2, 'John Doe', 'john@example.com', date('Y-m-d H:i:s', strtotime('-5 days')), date('Y-m-d H:i:s', strtotime('+9 days')), 'borrowed'],
-        [3, 3, 'Jane Smith', 'jane@example.com', date('Y-m-d H:i:s', strtotime('-10 days')), date('Y-m-d H:i:s', strtotime('-3 days')), 'borrowed'], // Overdue
-        [5, 4, 'Mike Johnson', 'mike@example.com', date('Y-m-d H:i:s', strtotime('-20 days')), date('Y-m-d H:i:s', strtotime('-6 days')), 'returned'],
-        [8, 5, 'Sarah Wilson', 'sarah@example.com', date('Y-m-d H:i:s', strtotime('-2 days')), date('Y-m-d H:i:s', strtotime('+12 days')), 'borrowed']
+        [1, 2, date('Y-m-d H:i:s', strtotime('-5 days')), date('Y-m-d H:i:s', strtotime('+9 days')), 'active'],
+        [3, 3, date('Y-m-d H:i:s', strtotime('-10 days')), date('Y-m-d H:i:s', strtotime('-3 days')), 'active'], // Overdue
+        [5, 4, date('Y-m-d H:i:s', strtotime('-20 days')), date('Y-m-d H:i:s', strtotime('-6 days')), 'returned'],
+        [8, 5, date('Y-m-d H:i:s', strtotime('-2 days')), date('Y-m-d H:i:s', strtotime('+12 days')), 'active']
     ];
     
     $stmt = $db->prepare("
-        INSERT OR IGNORE INTO borrows (book_id, user_id, user_name, user_email, borrow_date, return_date, status) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT OR IGNORE INTO borrows (book_id, user_id, borrow_date, due_date, status) 
+        VALUES (?, ?, ?, ?, ?)
     ");
     
     foreach ($borrows as $borrow) {
@@ -134,7 +148,7 @@ try {
     echo "<p>✅ Created " . count($borrows) . " sample borrow records</p>";
     
     // Update book availability
-    $db->exec("UPDATE books SET available = 0 WHERE id IN (1, 3, 8)"); // Books that are currently borrowed
+    $db->exec("UPDATE books SET copies_available = 0 WHERE id IN (1, 3, 8)"); // Books that are currently borrowed
     echo "<p>✅ Updated book availability status</p>";
     
     echo "<hr>";

@@ -28,6 +28,36 @@ class Book_model extends CI_Model {
         return $items;
     }
     
+    /**
+     * Get total number of books
+     */
+    public function get_total_books() {
+        return $this->db->count_all('books');
+    }
+    
+    /**
+     * Get recent books
+     */
+    public function get_recent_books($limit = 6) {
+        $this->db->order_by('created_at', 'DESC');
+        $this->db->limit($limit);
+        $query = $this->db->get('books');
+        return $this->add_available_property($query->result());
+    }
+    
+    /**
+     * Get book statistics
+     */
+    public function get_book_stats() {
+        $total_books = $this->get_total_books();
+        $available_books = $this->db->where('status', 'available')->where('copies_available >', 0)->count_all_results('books');
+        
+        return array(
+            'total_books' => $total_books,
+            'available_books' => $available_books
+        );
+    }
+    
     // Student functions
     public function get_all_books() {
         $this->db->select('*');
@@ -85,10 +115,13 @@ class Book_model extends CI_Model {
     }
     
     public function add_book($data) {
+        $data['created_at'] = date('Y-m-d H:i:s');
+        $data['updated_at'] = date('Y-m-d H:i:s');
         return $this->db->insert('books', $data);
     }
     
     public function update_book($id, $data) {
+        $data['updated_at'] = date('Y-m-d H:i:s');
         $this->db->where('id', $id);
         return $this->db->update('books', $data);
     }

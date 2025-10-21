@@ -7,6 +7,13 @@ class User_model extends CI_Model {
         parent::__construct();
     }
     
+    /**
+     * Get total number of users
+     */
+    public function get_total_users() {
+        return $this->db->count_all('users');
+    }
+    
     public function authenticate($username, $password) {
         $this->db->select('*');
         $this->db->from('users');

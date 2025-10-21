@@ -36,27 +36,106 @@
             border: none;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             color: white;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
         }
         .stat-card-success {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: white;
         }
         .stat-card-warning {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
             color: white;
         }
         .stat-card-info {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
             color: white;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        .text-xs {
+            font-size: 0.75rem;
+        }
+        .opacity-75 {
+            opacity: 0.75;
+        }
+        .opacity-50 {
+            opacity: 0.5;
+        }
+        .qa-btn {
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: left;
+            transition: all 0.3s;
+        }
+        .qa-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .qa-btn i {
+            width: 28px;
+            text-align: center;
+        }
+        .qa-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        .site-logo-lg {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 8px;
+        }
+        .sidebar img {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -66,8 +145,8 @@
         <nav class="sidebar">
             <div class="p-4">
                 <div class="text-center mb-4">
-                    <img src="<?php echo base_url('frontend/assets/logo.png'); ?>" alt="LibraryPro" class="site-logo-lg" style="border-radius:6px;">
-                    <h5 class="text-white mb-0">Admin Panel</h5>
+                    <img src="<?php echo base_url('frontend/assets/logo.png'); ?>" alt="LibraryPro" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
+                    <h5 class="text-white mb-0 mt-2">Admin Panel</h5>
                     <small class="text-muted">Library Management</small>
                 </div>
                 

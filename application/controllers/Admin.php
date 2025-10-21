@@ -66,6 +66,8 @@ class Admin extends CI_Controller {
             $this->form_validation->set_rules('author', 'Author', 'required|trim|max_length[255]');
             $this->form_validation->set_rules('isbn', 'ISBN', 'required|trim|max_length[20]');
             $this->form_validation->set_rules('description', 'Description', 'trim');
+            $this->form_validation->set_rules('category', 'Category', 'trim|max_length[100]');
+            $this->form_validation->set_rules('copies_total', 'Total Copies', 'integer|greater_than[0]');
             
             if ($this->form_validation->run() === TRUE) {
                 $isbn = $this->input->post('isbn');
@@ -78,7 +80,10 @@ class Admin extends CI_Controller {
                         'author' => $this->input->post('author'),
                         'isbn' => $isbn,
                         'description' => $this->input->post('description'),
-                        'available' => 1
+                        'category' => $this->input->post('category'),
+                        'copies_total' => $this->input->post('copies_total') ?: 1,
+                        'copies_available' => $this->input->post('copies_total') ?: 1,
+                        'status' => 'available'
                     );
                     
                     if ($this->Book_model->add_book($book_data)) {
@@ -127,7 +132,7 @@ class Admin extends CI_Controller {
                         'description' => $this->input->post('description')
                     );
                     
-                        // handle cover upload if present
+                        // Handle cover upload if present
                         if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
                             $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/svg+xml'];
                             $maxBytes = 2 * 1024 * 1024; // 2MB

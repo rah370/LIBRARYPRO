@@ -184,7 +184,7 @@ class LoginSystem {
     async makeLoginRequest(credentials) {
         // First try to make actual API call to backend
         try {
-            const response = await fetch('../index.php/auth/authenticate', {
+            const response = await fetch('../index.php/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

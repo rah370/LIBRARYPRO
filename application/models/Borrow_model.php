@@ -7,6 +7,13 @@ class Borrow_model extends CI_Model {
         parent::__construct();
     }
     
+    /**
+     * Get count of active borrows
+     */
+    public function get_active_borrows_count() {
+        return $this->db->where('status', 'borrowed')->count_all_results('borrows');
+    }
+    
     public function borrow_book($book_id, $user_id, $days = 14) {
         // Get user info
         $this->db->select('*');
@@ -86,10 +93,8 @@ class Borrow_model extends CI_Model {
     }
     
     public function get_all_borrows() {
-        // Select extra user fields. Do NOT alias non-existent columns (some DBs
-        // may not have users.student_id). Views should fallback to username when
-        // student_id is not available.
-    $this->db->select('borrows.*, books.title, books.author, users.first_name, users.last_name, users.username, users.student_id as student_id, users.email as user_email');
+        // Select extra user fields. Handle missing student_id column gracefully
+        $this->db->select('borrows.*, books.title, books.author, users.first_name, users.last_name, users.username, users.email as user_email');
         $this->db->from('borrows');
         $this->db->join('books', 'books.id = borrows.book_id');
         $this->db->join('users', 'users.id = borrows.user_id');
